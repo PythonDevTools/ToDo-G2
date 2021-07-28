@@ -4,3 +4,4 @@ __pycache__/
 .vscode/
 .idea/
 todo_app.db
+.pytest_cache
