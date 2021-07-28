@@ -37,3 +37,9 @@ def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
 def update_todo(id: int, done: bool = True, db: Session = Depends(get_db)):
     db_todo = crud.update_todo(db, todo_id=id, done=done)
     return db_todo
+
+@app.delete("/{id}")
+def delete_todo(id: int, delete: bool = False, db:Session = Depends(get_db)):
+    if delete:
+        crud.delete_todo(db, todo_id=id)
+        return id
