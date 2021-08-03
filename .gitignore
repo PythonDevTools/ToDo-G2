@@ -1,0 +1,8 @@
+venv/
+.env
+__pycache__/
+.vscode/
+.idea/
+todo_app.db
+test.db
+.pytest_cache
