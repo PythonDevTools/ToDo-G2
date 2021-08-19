@@ -54,5 +54,10 @@ async def update_todo(id: int, done: bool = True, db: Session = Depends(get_db))
 @app.delete("/{id}")
 def delete_todo(id: int, delete: bool = False, db:Session = Depends(get_db)):
     if delete:
-        crud.delete_todo(db, todo_id=id)
-        return id
+        try:
+            crud.delete_todo(db, todo_id=id)
+            return f"Task: id={id} has been deleted"
+        except:
+            raise HTTPException(status_code=404, detail='id does not exist')
+    else:
+        raise HTTPException(status_code=400, detail="To delete the task --> delete=true") 
