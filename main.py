@@ -12,7 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://todo-fastapi-react.vercel.app/"
+    "https://todo-fastapi-react.vercel.app"
 ]
 
 app.add_middleware(
