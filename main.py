@@ -45,6 +45,11 @@ async def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     db_todo = crud.create_todo(db, todo)
     return db_todo
 
+@app.get("/{id}")
+async def get_todo(id: int, db:Session = Depends(get_db)):
+    db_todo = crud.get_todo(db,todo_id=id)
+    return db_todo
+
 
 # Route to change the done named bool
 @app.put("/{id}")
