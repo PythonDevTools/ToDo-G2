@@ -12,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://todo-fastapi-react.vercel.app"
 ]
 
 app.add_middleware(
@@ -42,6 +43,11 @@ async def read_todos(skip: int = 0, limit: int = 100, db: Session = Depends(get_
 @app.post("/")
 async def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     db_todo = crud.create_todo(db, todo)
+    return db_todo
+
+@app.get("/{id}")
+async def get_todo(id: int, db:Session = Depends(get_db)):
+    db_todo = crud.get_todo(db,todo_id=id)
     return db_todo
 
 
