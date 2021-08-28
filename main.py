@@ -53,9 +53,14 @@ async def get_todo(id: int, db:Session = Depends(get_db)):
 
 # Route to change the done named bool
 @app.put("/{id}")
-async def update_todo(id: int, done: bool = True, db: Session = Depends(get_db)):
-    db_todo = crud.update_todo(db, todo_id=id, done=done)
+async def update_todo(id: int, todo: schemas.TodoCreate, done: bool = False, db: Session = Depends(get_db)):
+    if done:
+        db_todo = crud.update_done(db, todo_id=id, done=done)
+    else:
+        db_todo = crud.update_todo(db, todo_id=id, todo=todo)
     return db_todo
+
+
 
 @app.delete("/{id}")
 def delete_todo(id: int, db:Session = Depends(get_db)):

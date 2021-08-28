@@ -20,12 +20,22 @@ def get_todo(db: Session, todo_id: int):
     return db.query(models.Todo).filter(models.Todo.id == todo_id).first() 
 
 # this function will update the todo
-def update_todo(db: Session, todo_id: int, done: bool):
+def update_done(db: Session, todo_id: int, done: bool):
     db_todo = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
     db_todo.done = done
     db.commit()
     db.refresh(db_todo)
     return db_todo
+
+def update_todo(db: Session, todo_id: int, todo: schemas.TodoCreate):
+    db_todo = db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    db_todo.title = todo.title
+    db_todo.content = todo.content
+    db_todo.due = todo.due
+    db.commit()
+    db.refresh(db_todo)
+    return db_todo
+
 
 # this Function will delete a task
 def delete_todo(db: Session, todo_id: int):
